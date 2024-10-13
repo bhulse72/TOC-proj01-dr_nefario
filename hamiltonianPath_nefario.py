@@ -3,7 +3,6 @@
 import collections
 import sys
 import time
-import itertools
 
 # Type Aliases
 Graph = dict[int, set[int]]
@@ -51,25 +50,35 @@ def read_graph(stream) -> tuple[Graph, int]:
 
     return graph, problem_number
 
-# Find Hamiltonian Path Using Iterative Approach
+# Recursive function to find Hamiltonian Path
+def find_hamiltonian_path(graph: Graph, path: list[int], visited: set[int]) -> bool:
+    if len(path) == len(graph):  # All vertices are visited
+        return True
+
+    last_vertex = path[-1]
+
+    for neighbor in graph[last_vertex]:
+        if neighbor not in visited:
+            # Mark the neighbor as visited
+            visited.add(neighbor)
+            path.append(neighbor)
+
+            if find_hamiltonian_path(graph, path, visited):
+                return True
+
+            # Backtrack: Unmark the neighbor and remove from path
+            visited.remove(neighbor)
+            path.pop()
+
+    return False
+
+# Wrapper function to initiate the search
 def has_hamiltonian_path(graph: Graph) -> bool:
-    vertices = list(graph.keys())
-    
-    # Print the graph for debugging
-    print("Graph structure:", graph)
+    for start_vertex in graph.keys():
+        path = [start_vertex]
+        visited = {start_vertex}
 
-    for perm in itertools.permutations(vertices):
-        # Check if the current permutation forms a Hamiltonian path
-        valid_path = True
-        for i in range(len(perm) - 1):
-            if perm[i + 1] not in graph[perm[i]]:
-                valid_path = False
-                break
-        
-        # Debugging: Print the current permutation being checked
-        print("Checking permutation:", perm, "Valid path:", valid_path)
-
-        if valid_path:
+        if find_hamiltonian_path(graph, path, visited):
             return True
 
     return False
