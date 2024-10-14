@@ -1,0 +1,3 @@
+Yes
+Time to read graph: 0.000529 seconds
+Time to find Hamiltonian path: 0.000017 seconds
