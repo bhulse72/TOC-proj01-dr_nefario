@@ -25,7 +25,7 @@ for test_file in "$test_dir"/check*-nefario.txt; do
     test_number=$(basename "$test_file" | sed 's/check\([0-9]*\)-nefario\.txt/\1/')
 
     # Set the result file name based on the test number
-    result_file="$results_dir/data${test_number}_nefario.txt"
+    result_file="$results_dir/output${test_number}_nefario.txt"
 
     # Run the Python script with the test file as input and redirect output to the result file
     python3 "$script_path" < "$test_file" > "$result_file"
