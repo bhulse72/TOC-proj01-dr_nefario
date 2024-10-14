@@ -2,8 +2,8 @@
 
 # Set the paths relative to the main directory
 script_path="./hamiltonianPath_nefario.py"
-test_dir="./tests"
-results_dir="./test_results"
+test_dir="./checkFolder_nefario"
+results_dir="./outputFolder_nefario"
 
 # Check if the tests directory exists
 if [ ! -d "$test_dir" ]; then
@@ -12,7 +12,7 @@ if [ ! -d "$test_dir" ]; then
 fi
 
 # Create the results directory if it doesn't exist
-mkdir -p "$results_dir"
+mkdir -p "$outputFolder_nefario"
 
 # Loop over test files
 for test_file in "$test_dir"/check*-nefario.txt; do
